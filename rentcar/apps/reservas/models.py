@@ -1,20 +1,24 @@
 from django.db import models
-from apps.clientes.models import Cliente
-from apps.veiculos.models import Veiculo
+from clientes.models import Cliente
 
 class Reserva(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
-    veiculo = models.ForeignKey(Veiculo, on_delete=models.PROTECT)
-    data_inicio = models.DateField()
-    data_fim = models.DateField()
-    status = models.CharField(max_length=20, choices=[
-        ('PENDENTE', 'Pendente'),
-        ('CONFIRMADA', 'Confirmada'),
-        ('CANCELADA', 'Cancelada')
-    ])
+    PENDENTE = 'P'
+    CONFIRMADA = 'C'
+    CANCELADA = 'X'
+    STATUS_CHOICES = [
+        (PENDENTE, 'Pendente'),
+        (CONFIRMADA, 'Confirmada'),
+        (CANCELADA, 'Cancelada'),
+    ]
     
-    class Meta:
-        app_label = 'reservas'
-    
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default=PENDENTE)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    codigo = models.CharField(max_length=10, unique=True)
+
+    def confirmar(self):
+        self.status = self.CONFIRMADA
+        self.save()
+
     def __str__(self):
-        return f"Reserva #{self.id} - {self.cliente.nome}"
+        return f"Reserva #{self.codigo} - {self.get_status_display()}"
