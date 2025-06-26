@@ -11,4 +11,4 @@ class Veiculo(models.Model):
         app_label = 'veiculos'
     
     def __str__(self):
-        return f"{self.placa} ({'Disponível' if self.disponivel else 'Indisponível'})"
+        return f"{self.placa} (R${self.valor_diaria}/dia)"
