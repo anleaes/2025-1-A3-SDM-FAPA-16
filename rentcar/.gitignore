@@ -1,9 +1,7 @@
-rentcar/__pycache__/*
-/apps/categorias/__pycache__/*
-/apps/categorias/migrations/*
-/apps/clientes/__pycache__/*
-/apps/clientes/migrations/*
-/apps/veiculos/migrations/*
-/apps/veiculos/__pycache__/*
-.pyc
+*/migrations/*.py
+!*/migrations/__init__.py
+
 __pycache__/
+*.py[cod]
+
+db.sqlite3
