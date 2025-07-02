@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from apps.veiculos.models import Veiculo
-from apps.categorias.serializers import CategoriaSerializer
+##from apps.categorias.serializers import CategoriaSerializer
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:

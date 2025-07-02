@@ -1,5 +1,6 @@
 from django.db import models
-from apps.categorias.models import Categoria
+from categorias.models import Categoria
+# Create your models here.
 
 class Veiculo(models.Model):
     placa = models.CharField(max_length=10, unique=True)
@@ -8,7 +9,9 @@ class Veiculo(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     
     class Meta:
-        app_label = 'veiculos'
+        verbose_name = 'Veículo'
+        verbose_name_plural = 'Veículos'
+        ordering = ['placa'] 
     
     def __str__(self):
-        return f"{self.placa} (R${self.valor_diaria}/dia)"
+        return f"{self.placa} - {self.categoria.nome}"

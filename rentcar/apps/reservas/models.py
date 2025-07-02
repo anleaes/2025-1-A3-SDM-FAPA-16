@@ -1,10 +1,9 @@
 from django.db import models
-from apps.clientes.models import Cliente
-from apps.veiculos.models import Veiculo
+from clientes.models import Cliente
+# Create your models here.
 
 class Reserva(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
-    veiculo = models.ForeignKey(Veiculo, on_delete=models.PROTECT)
     data_inicio = models.DateField()
     data_fim = models.DateField()
     status = models.CharField(max_length=20, choices=[
@@ -14,7 +13,9 @@ class Reserva(models.Model):
     ])
     
     class Meta:
-        app_label = 'reservas'
-    
+        verbose_name = 'Reserva'
+        verbose_name_plural = 'Reservas'
+        ordering =['id']
+
     def __str__(self):
         return f"Reserva #{self.id} - {self.cliente.nome}"
